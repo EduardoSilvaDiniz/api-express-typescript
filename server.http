@@ -1,0 +1,17 @@
+GET localhost:5050/
+
+###
+
+POST localhost:5050/test?teste=ola
+
+{
+	"nome": "edu"
+}
+
+### 
+
+POST localhost:5050/cidades
+
+{
+	"nome": "du"
+}
