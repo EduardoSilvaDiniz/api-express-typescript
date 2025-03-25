@@ -4,6 +4,7 @@ import { object, InferType, string, ValidationError } from "yup";
 
 const bodyValidation = object({
   nome: string().required().min(3),
+	estado: string().required().min(2),
 });
 
 type ICidade = InferType<typeof bodyValidation>;
@@ -13,13 +14,18 @@ export async function create(
   res: Response,
 ): Promise<void> {
   try {
-    await bodyValidation.validate(req.body);
+    await bodyValidation.validate(req.body, { abortEarly: false });
   } catch (error) {
     const yupError = error as ValidationError;
-    res.json({
-      errors: {
-        default: yupError.message,
-      },
+    const validationErrors: Record<string, string> = {};
+
+    yupError.inner.forEach((error) => {
+      if (error.path === undefined) return;
+      validationErrors[error.path] = error.message;
+    });
+
+    res.status(StatusCodes.BAD_REQUEST).json({
+      errors: validationErrors,
     });
     return;
   }
