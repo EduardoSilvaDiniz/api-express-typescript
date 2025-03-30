@@ -1,22 +1,22 @@
-import { Response, Request, RequestHandler } from "express";
-import { object, InferType, string, ObjectShape, Schema, number } from "yup";
+import { Response, Request } from "express";
+import { object, string } from "yup";
 import { validation } from "../../shared/middleware";
+import { StatusCodes } from "http-status-codes";
 
 export const createValidation = validation((getSchema) => ({
   body: getSchema(
     object({
       nome: string().required().min(3),
-      estado: string().required().min(2),
     }),
   ),
   query: getSchema(
     object({
-      filter: string().required().min(3),
+      filter: string().optional().min(3),
     }),
   ),
 }));
 
 export const create = (req: Request, res: Response) => {
-  res.send("create");
+  res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Não esta implementando");
   return;
 };
