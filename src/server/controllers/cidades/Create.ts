@@ -6,17 +6,14 @@ import { StatusCodes } from "http-status-codes";
 export const createValidation = validation((getSchema) => ({
   body: getSchema(
     object({
-      nome: string().required().min(3),
-    }),
-  ),
-  query: getSchema(
-    object({
-      filter: string().optional().min(3),
+      nome: string().required().min(3).matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/),
     }),
   ),
 }));
 
 export const create = (req: Request, res: Response) => {
-  res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Não esta implementando");
+  console.log(req.body);
+
+  res.status(StatusCodes.CREATED).json(1);
   return;
 };
