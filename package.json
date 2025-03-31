@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "server": "tsx watch ./src/index.ts",
-    "test": "jest"
+    "test": "jest",
+		"postinstall": "tsc",
+		"production":"node ./build/index.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
@@ -24,5 +26,8 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
-  }
+  },
+	"engine": {
+		"node": "20.x"
+	}
 }
