@@ -8,7 +8,7 @@ router.get("/", (_, res: any) => {
 
 router.get(
   "/cidades",
-  CidadesController.createValidation,
+  CidadesController.getAllValidation,
   CidadesController.getAll,
 );
 

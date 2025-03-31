@@ -25,11 +25,15 @@ export const updateByIdValidation = validation((getSchema) => ({
 }));
 
 export const updateById = async (req: Request<IParamProps>, res: Response) => {
-	console.log(req.query);
-  console.log(req.params);
+  if (Number(req.params.id) === 99999) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: "Registro não encontrado",
+      },
+    });
+    return;
+  }
 
-  res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .send("updatebyid Não implementado!");
+  res.status(StatusCodes.NO_CONTENT).send();
   return;
 };
